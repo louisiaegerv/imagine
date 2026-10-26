@@ -3,10 +3,12 @@ import { Geist, Geist_Mono } from "next/font/google"
 
 import "./globals.css"
 import { AppSidebar } from "@/components/app-sidebar"
+import { AppMain } from "@/components/app-main"
+import { AppearanceProvider } from "@/components/appearance-provider"
 import { GenerationProvider } from "@/components/generation-provider"
 import { MobileTabBar } from "@/components/mobile-tab-bar"
 import { ThemeProvider } from "@/components/theme-provider"
-import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
+import { SidebarProvider } from "@/components/ui/sidebar"
 import { Toaster } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
@@ -36,21 +38,25 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={cn("antialiased", fontMono.variable, "font-sans", geist.variable)}
+      className={cn(
+        "antialiased",
+        fontMono.variable,
+        "font-sans",
+        geist.variable
+      )}
     >
       <body>
         <ThemeProvider>
           <Toaster position="top-center" />
           <GenerationProvider>
             <TooltipProvider>
-              <SidebarProvider>
-                <AppSidebar />
-                {/* Bottom padding keeps content clear of the mobile tab bar. */}
-                <SidebarInset className="min-w-0 pb-[calc(4rem+env(safe-area-inset-bottom))] md:pb-0">
-                  {children}
-                </SidebarInset>
-                <MobileTabBar />
-              </SidebarProvider>
+              <AppearanceProvider>
+                <SidebarProvider>
+                  <AppSidebar />
+                  <AppMain>{children}</AppMain>
+                  <MobileTabBar />
+                </SidebarProvider>
+              </AppearanceProvider>
             </TooltipProvider>
           </GenerationProvider>
         </ThemeProvider>

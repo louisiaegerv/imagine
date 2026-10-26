@@ -9,9 +9,13 @@ import {
 } from "lucide-react"
 
 import { useGeneration } from "@/components/generation-provider"
+import { AppearanceButton } from "@/components/appearance-dialog"
+import { BackgroundLayer } from "@/components/background-layer"
+import { ThemeToggle } from "@/components/theme-toggle"
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
@@ -39,6 +43,7 @@ export function AppSidebar() {
 
   return (
     <Sidebar collapsible="icon">
+      <BackgroundLayer region="sidebar" />
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -60,15 +65,16 @@ export function AppSidebar() {
         </SidebarMenu>
       </SidebarHeader>
       <SidebarContent>
-        <SidebarGroup>
+        <SidebarGroup className="px-3 group-data-[collapsible=icon]:px-2">
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="gap-1.5">
               {NAV.map(({ href, label, icon: Icon }) => (
                 <SidebarMenuItem key={href}>
                   <SidebarMenuButton
                     asChild
                     isActive={pathname.startsWith(href)}
                     tooltip={label}
+                    className="h-10 gap-3 rounded-lg px-3 text-sidebar-foreground/70 transition-colors hover:text-sidebar-foreground data-active:bg-brand/10 data-active:text-brand data-active:hover:bg-brand/15 data-active:hover:text-brand dark:data-active:bg-brand/15 dark:data-active:hover:bg-brand/20 [&_svg]:size-[18px]"
                   >
                     <Link href={href} onClick={closeMobile}>
                       <Icon />
@@ -84,6 +90,10 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter className="flex-row px-3 group-data-[collapsible=icon]:flex-col group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:px-2">
+        <ThemeToggle tooltipSide="right" className="size-8" />
+        <AppearanceButton tooltipSide="right" className="size-8" />
+      </SidebarFooter>
       <SidebarRail />
     </Sidebar>
   )

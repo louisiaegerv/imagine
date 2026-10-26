@@ -7,6 +7,7 @@ import { LIBRARY_DIR } from "@/lib/paths"
 export const IMAGES_DIR = path.join(LIBRARY_DIR, "images")
 const OUTPUT_DIR = path.join(IMAGES_DIR, "out")
 const INPUT_DIR = path.join(IMAGES_DIR, "inputs")
+const BACKGROUND_DIR = path.join(IMAGES_DIR, "backgrounds")
 
 const EXT_BY_TYPE: Record<string, string> = {
   "image/png": "png",
@@ -37,6 +38,14 @@ export async function saveInputImage(file: File) {
     Buffer.from(await file.arrayBuffer())
   )
   return `inputs/${filename}`
+}
+
+/** Saves an already-processed WebP background and returns its library-relative path. */
+export async function saveBackgroundImage(webp: Buffer) {
+  await mkdir(BACKGROUND_DIR, { recursive: true })
+  const filename = `${crypto.randomUUID()}.webp`
+  await writeFile(path.join(BACKGROUND_DIR, filename), webp)
+  return `backgrounds/${filename}`
 }
 
 /** Resolves a library-relative path, refusing anything outside IMAGES_DIR. */

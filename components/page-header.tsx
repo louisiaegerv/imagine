@@ -1,9 +1,9 @@
 import Link from "next/link"
 import { ArrowLeftIcon } from "lucide-react"
 
+import { AppearanceButton } from "@/components/appearance-dialog"
+import { ThemeToggle } from "@/components/theme-toggle"
 import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
-import { SidebarTrigger } from "@/components/ui/sidebar"
 
 export function PageHeader({
   title,
@@ -17,11 +17,6 @@ export function PageHeader({
 }) {
   return (
     <header className="sticky top-0 z-20 flex h-12 shrink-0 items-center gap-2 border-b bg-background/80 px-4 backdrop-blur">
-      <SidebarTrigger className="-ml-1 hidden md:inline-flex" />
-      <Separator
-        orientation="vertical"
-        className="mr-1 hidden data-vertical:h-4 md:block"
-      />
       {backHref && (
         <Button asChild variant="ghost" size="icon-sm" aria-label="Back">
           <Link href={backHref}>
@@ -30,7 +25,12 @@ export function PageHeader({
         </Button>
       )}
       <h1 className="truncate text-sm font-medium">{title}</h1>
-      <div className="ml-auto flex items-center gap-2">{children}</div>
+      <div className="ml-auto flex items-center gap-2">
+        {children}
+        {/* Phones have no sidebar, so the theme switch lives here instead. */}
+        <AppearanceButton className="md:hidden" />
+        <ThemeToggle className="md:hidden" />
+      </div>
     </header>
   )
 }

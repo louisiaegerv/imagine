@@ -100,6 +100,8 @@ export function DetailPanel({
 }) {
   const g = image.generation
   const usage: Usage = g.usage
+  // The name the image is stored under in the library's images folder.
+  const fileName = image.url.split("/").pop()
   const [copied, setCopied] = React.useState(false)
   const [confirmDelete, setConfirmDelete] = React.useState(false)
   const [deleting, setDeleting] = React.useState(false)
@@ -294,6 +296,13 @@ export function DetailPanel({
           <Row label="Format" value={`${g.outputFormat} · ${g.outputCompression}%`} />
           <Row label="Batch size" value={g.imageCount} />
           <Row label="Render time" value={formatDuration(g.durationMs)} />
+          {/* Stacked: the name is too long to sit beside its label. */}
+          <div className="py-1 text-sm">
+            <dt className="text-muted-foreground">File name</dt>
+            <dd className="mt-0.5 font-mono text-xs break-all select-all">
+              {fileName}
+            </dd>
+          </div>
           <Row label="File size" value={formatBytes(image.bytes)} />
           <Row label="Created" value={formatDate(image.createdAt)} />
         </Section>

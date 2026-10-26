@@ -24,7 +24,7 @@ function Tab({
       aria-current={active ? "page" : undefined}
       className={cn(
         "flex h-14 flex-1 flex-col items-center justify-center gap-0.5 text-[0.7rem] font-medium outline-none transition-colors focus-visible:bg-muted",
-        active ? "text-foreground" : "text-muted-foreground"
+        active ? "text-brand" : "text-muted-foreground"
       )}
     >
       <Icon className="size-5" />
@@ -57,7 +57,7 @@ export function MobileTabBar() {
           aria-current={pathname.startsWith("/generate") ? "page" : undefined}
           className={cn(
             "relative -mt-5 mb-2 flex size-14 items-center justify-center rounded-full shadow-lg ring-4 ring-background outline-none transition-transform active:scale-95 focus-visible:ring-ring/50",
-            pathname.startsWith("/generate") && "ring-primary/30"
+            pathname.startsWith("/generate") && "ring-brand/40"
           )}
         >
           {/* eslint-disable-next-line @next/next/no-img-element */}
