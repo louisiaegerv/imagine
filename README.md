@@ -112,6 +112,10 @@ Image generation through a chat app or a subscription site has a few annoyances 
 **From Claude Desktop**
 - A small MCP server lets Claude generate and show images in chat. See [Use it from Claude Desktop](#use-it-from-claude-desktop-mcp).
 
+<p align="center">
+  <img src="docs/screenshots/imagine-mcp-example_md.webp" alt="Claude Desktop generating a website mockup through the Imagine MCP server and reporting the cost of the image" width="360">
+</p>
+
 ## Tech
 
 Next.js 16 (App Router and route handlers), React 19, TypeScript, Tailwind CSS 4, shadcn/ui (Radix), Motion, Sonner, SQLite via Node's built-in `node:sqlite`, `sharp` for image processing, Zod for validation, and the Model Context Protocol SDK. No external database or hosted services.
