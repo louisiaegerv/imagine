@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 
-import { listImages } from "@/lib/db"
+import { deleteImages, listImages } from "@/lib/db"
+import { imageIdsSchema } from "@/lib/validation"
 
 export async function GET(request: Request) {
   const params = new URL(request.url).searchParams
@@ -17,4 +18,14 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: "Invalid collection" }, { status: 400 })
   }
   return NextResponse.json(listImages(cursor, limit, collectionId))
+}
+
+/** Permanently deletes the given images. Responds with the ids that were removed. */
+export async function DELETE(request: Request) {
+  const body = await request.json().catch(() => null)
+  const imageIds = imageIdsSchema.safeParse(body?.imageIds)
+  if (!imageIds.success) {
+    return NextResponse.json({ error: "imageIds must be a list of image ids" }, { status: 400 })
+  }
+  return NextResponse.json({ deleted: await deleteImages(imageIds.data) })
 }

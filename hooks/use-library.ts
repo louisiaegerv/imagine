@@ -106,6 +106,22 @@ export function useLibrary(collectionId?: number) {
     [dropFromList]
   )
 
+  /** Deletes many images at once; resolves to the ids that were removed. */
+  const removeMany = React.useCallback(
+    async (ids: number[]) => {
+      const res = await fetch("/api/images", {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageIds: ids }),
+      }).catch(() => null)
+      if (!res?.ok) return []
+      const { deleted } = (await res.json()) as { deleted: number[] }
+      if (deleted.length > 0) dropFromList(deleted)
+      return deleted
+    },
+    [dropFromList]
+  )
+
   return {
     items,
     hasMore,
@@ -113,6 +129,7 @@ export function useLibrary(collectionId?: number) {
     summary,
     loadMore,
     remove,
+    removeMany,
     dropFromList,
     update,
   }

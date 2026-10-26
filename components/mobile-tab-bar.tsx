@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { FolderIcon, ImagesIcon, SparklesIcon } from "lucide-react"
+import { FolderIcon, ImagesIcon } from "lucide-react"
 
 import { useGeneration } from "@/components/generation-provider"
 import { cn } from "@/lib/utils"
@@ -56,11 +56,16 @@ export function MobileTabBar() {
           aria-label="Generate"
           aria-current={pathname.startsWith("/generate") ? "page" : undefined}
           className={cn(
-            "relative -mt-5 mb-2 flex size-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg ring-4 ring-background outline-none transition-transform active:scale-95 focus-visible:ring-ring/50",
+            "relative -mt-5 mb-2 flex size-14 items-center justify-center rounded-full shadow-lg ring-4 ring-background outline-none transition-transform active:scale-95 focus-visible:ring-ring/50",
             pathname.startsWith("/generate") && "ring-primary/30"
           )}
         >
-          <SparklesIcon className="size-6" />
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/imagine-icon.webp"
+            alt=""
+            className="size-full rounded-full"
+          />
           {pendingCount > 0 && (
             <span className="absolute -top-1 -right-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-destructive px-1 text-xs font-medium text-white tabular-nums">
               {pendingCount}

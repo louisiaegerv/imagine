@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server"
 
-import { collectionNameSchema } from "@/lib/collections"
+import { collectionNameSchema } from "@/lib/validation"
 import { deleteCollection, getCollection, renameCollection } from "@/lib/db"
 
 type Context = { params: Promise<{ id: string }> }

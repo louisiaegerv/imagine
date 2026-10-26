@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server"
 
 import { createCollection, listCollections } from "@/lib/db"
-import { collectionNameSchema } from "@/lib/collections"
+import { collectionNameSchema } from "@/lib/validation"
 
 export function GET() {
   return NextResponse.json(listCollections())

@@ -74,6 +74,7 @@ export function LibraryView({ collection }: { collection?: Collection }) {
     summary,
     loadMore,
     remove,
+    removeMany,
     dropFromList,
     update,
   } = useLibrary(collection?.id)
@@ -174,6 +175,20 @@ export function LibraryView({ collection }: { collection?: Collection }) {
       setChecked((c) => new Set([...c].filter((id) => !ids.includes(id))))
     }
     return true
+  }
+
+  async function handleBulkDelete(ids: number[]) {
+    const images = `${ids.length} image${ids.length === 1 ? "" : "s"}`
+    const request = removeMany(ids).then((deleted) => {
+      setChecked((c) => new Set([...c].filter((id) => !deleted.includes(id))))
+      return deleted.length === ids.length
+    })
+    const ok = await notifyResult(request, {
+      loading: `Deleting ${images}\u2026`,
+      success: `Deleted ${images}`,
+      error: "Couldn't delete every selected image",
+    })
+    if (ok) exitSelecting()
   }
 
   const handleToggleCollection: ToggleCollection = async (
@@ -388,6 +403,7 @@ export function LibraryView({ collection }: { collection?: Collection }) {
                 error: `Couldn't remove ${images} from the collection`,
               })
             }}
+            onDelete={() => handleBulkDelete(checkedIds)}
             onSelectAll={() => setChecked(new Set(items.map((i) => i.id)))}
             onClear={() => setChecked(new Set())}
             onDone={exitSelecting}

@@ -280,6 +280,15 @@ export async function deleteImage(id: number) {
   return true
 }
 
+/** Deletes several images, returning the ids that were actually removed. */
+export async function deleteImages(ids: number[]) {
+  const deleted: number[] = []
+  for (const id of ids) {
+    if (await deleteImage(id)) deleted.push(id)
+  }
+  return deleted
+}
+
 export function getStats(): LibraryStats {
   const db = getDb()
   const images = db.prepare("SELECT COUNT(*) AS n FROM images").get() as {
