@@ -105,6 +105,10 @@ Image generation through a chat app or a subscription site has a few annoyances 
 **On your phone**
 - A mobile layout with a thumb-reach tab bar (Library, Generate, Collections). See [Using it from your phone](#using-it-from-your-phone).
 
+<p align="center">
+  <img src="docs/screenshots/imagine-mobile-view_md.webp" alt="The mobile tab bar: Library on the left, the round Imagine logo as the Generate button in the centre, Collections on the right" width="100%">
+</p>
+
 **From Claude Desktop**
 - A small MCP server lets Claude generate and show images in chat. See [Use it from Claude Desktop](#use-it-from-claude-desktop-mcp).
 
